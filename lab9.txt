@@ -1,0 +1,98 @@
+1.
+
+package lab8;
+
+import java.util.Scanner;
+
+public class SimpleCalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        try {
+            System.out.println("Enter the first number:");
+            double num1 = sc.nextDouble();
+            System.out.println("Enter the second number:");
+            double num2 = sc.nextDouble();
+            System.out.println("Enter the operator(+,-,/,*):");
+            char operator = sc.next().charAt(0);
+            double result;
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    System.out.println("The result is:" + result);
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    System.out.println("The result is:" + result);
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    System.out.println("The result is :" + result);
+                    break;
+                case '/':
+                    if (num2 == 0) {
+                        System.out.println("Divison by zero is not allowed");
+                    } else {
+                        result = num1/num2;
+System.out.println("The result is:"+result);
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid operator");
+            }
+
+        }
+        catch(Exception e){
+            System.out.println("Error:Invalid input.");
+        }
+        finally{
+            sc.close();
+        }
+    }
+}
+2.
+ public void withdraw(double amount) throws InsufficientFundsException {
+        if (amount > 0) {
+            if (amount <= balance) {
+                balance -= amount;
+                System.out.println("Withdrawn: " + amount);
+            } else {
+                throw new InsufficientFundsException("Insufficient funds for this withdrawal.");
+            }
+        } else {
+            System.out.println("Invalid withdrawal amount.");
+        }
+    }
+
+    public static class InsufficientFundsException extends Exception {
+        public InsufficientFundsException(String message) {
+            super(message);
+        }
+    }
+
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount(1000.00); 
+
+        System.out.println("Current balance: " + account.getBalance());
+        
+        
+        account.deposit(500.00);
+        System.out.println("Balance after deposit: " + account.getBalance());
+        
+        
+        try {
+            account.withdraw(200.00);
+            System.out.println("Balance after withdrawal: " + account.getBalance());
+        } catch (InsufficientFundsException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        
+        try {
+            account.withdraw(1500.00);
+        } catch (InsufficientFundsException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Final balance: " + account.getBalance());
+    }
+}
